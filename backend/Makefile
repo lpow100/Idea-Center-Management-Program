@@ -4,9 +4,9 @@ OBJS := $(SRC:.cpp=.o)
 
 CXXFLAGS = -std=c++17 -Wall -Iphc-winner-argon2-20190702/include
 
-LDLIBS = -lpqxx -lpq
+LDLIBS = -lpqxx -lpq -lfmt
 
-all: main clean
+all: main
 
 main: $(OBJS)
 	$(CXX) -o $@ $^ $(LDLIBS) phc-winner-argon2-20190702/libargon2.a
