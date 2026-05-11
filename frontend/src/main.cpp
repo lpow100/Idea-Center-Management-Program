@@ -1,4 +1,4 @@
-#include "C:/raylib/raylib/src/raylib.h"
+#include "raylib.h"
 
 //----------------------------------------------------------------------------------
 // Main entry point
