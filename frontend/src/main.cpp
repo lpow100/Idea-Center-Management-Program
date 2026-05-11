@@ -1,4 +1,5 @@
 #include "C:/raylib/raylib/src/raylib.h"
+#include "raygui.h"
 
 //----------------------------------------------------------------------------------
 // Main entry point
@@ -19,10 +20,6 @@ int main() {
   while (!WindowShouldClose()) // Detect window close button or ESC key
   {
     BeginDrawing();
-    ClearBackground(GRAY);
-
-    DrawRectangleRounded({10, 10, 380, 380}, 0.2, 0, BLUE);
-    DrawRectangleRoundedLines({10, 10, 380, 380}, 0.2, 0, 5, DARKBLUE);
 
     EndDrawing();
   }
