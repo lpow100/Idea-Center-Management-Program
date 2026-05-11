@@ -1,11 +1,13 @@
-# Idea Center Downton Inventory Backend
-A simple program to track classes and inventory.
+# Idea Center Management Backend
+A simple program to track classes, sign in members, and track inventory.
 
 ## Goals
  - [ ] Be able to track the schedules and members of classes
  - [ ] Be able to track where kits are used, how many is left
- - [x] Track the stembassadors who work at the downtown location of the Idea Center
+ - [x] Track the stembassadors who work at the location of the Idea Center
  - [ ] Keep logs of what happens to prevent fraud
+ - [ ] Manage members of the idea center
+ - [ ] Sign in staff and and members
  
 ## Problems
  - Need help figuring a system for out who can modify what
