@@ -1,3 +1,3 @@
 cd frontend
-run.bat
+runFrontend.bat
 cd ..

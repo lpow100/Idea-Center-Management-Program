@@ -353,7 +353,7 @@ OBJ_DIR = obj
 
 # Define all object files from source files
 SRC = $(call rwildcard, *.cpp, *.h)
-#OBJS = $(SRC:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
+# OBJS = $(SRC:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
 OBJS ?= src/main.cpp
 
 # For Android platform we call a custom Makefile.Android
