@@ -160,7 +160,7 @@ int main() {
         }
     });
 
-    CROW_ROUTE(app, "/login/").methods(crow::HTTPMethod::POST)
+    CROW_ROUTE(app, "/login-stembassador/").methods(crow::HTTPMethod::POST)
     ([&database](const crow::request& req) {
         auto body_json = crow::json::load(req.body);
         

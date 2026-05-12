@@ -50,7 +50,7 @@ puts a new stembassador in the system
 }
 ```
 
-### /login/
+### /login-stembassador/
 gives a session id to allow the frontend to be logged in
 #### body JSON:
 ``` json
