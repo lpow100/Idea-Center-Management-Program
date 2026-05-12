@@ -72,15 +72,25 @@ int main() {
 
         // Main Textbox Focusing Statement
         //----------------------------------------------------------------------------------
+        if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+            if (CheckCollisionPointRec(GetMousePosition(), searchBarInfo.rect)) {
+                searchBarInfo.focus = true;
+            } else {
+                searchBarInfo.focus = false;
+            }
+        }
+
+
         if (GuiTextBox(searchBarInfo.rect, searchBarInfo.text, searchBarInfo.charNum, searchBarInfo.focus)) {
-            searchBarInfo.focus = !searchBarInfo.focus;
+            searchBarInfo.focus = false;
+            searchButtonPressed = true;
         }
 
 
         // Main Textbox Searching
         //----------------------------------------------------------------------------------
         if (GuiButton({GetScreenWidth()-(bufferSize+(fontSize+10)), bufferSize, (float)fontSize+10, (float)fontSize+10}, ">")) {
-            searchButtonPressed = !searchButtonPressed;
+            searchButtonPressed = true;
         } if (strcmp(searchBarInfo.pastText, searchBarInfo.text) != 0 && searchButtonPressed == true) {
             searchButtonPressed = false;
         } if (searchButtonPressed) {
