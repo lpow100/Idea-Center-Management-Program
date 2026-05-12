@@ -1,7 +1,8 @@
 #include "raylib.h"
 #define RAYGUI_IMPLEMENTATION
 #include "raygui.h"
-#include "resources/theme.h"
+#include <theme.h>
+#include <httplib.h>
 #include <string.h>
 
 //-----------------------------------------------------------------------------------------
