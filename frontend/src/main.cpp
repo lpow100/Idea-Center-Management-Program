@@ -11,7 +11,7 @@
 int main() {
     // Initialization
     //-------------------------------------------------------------------------------------
-    const int screenWidth = 960;
+    const int screenWidth = 960; 
     const int screenHeight = 540;
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(screenWidth, screenHeight, "FS-ID");
