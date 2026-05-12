@@ -61,11 +61,6 @@ int main() {
     // Main game loop
     while (!WindowShouldClose()) // Detect window close button or ESC key
     {
-        // Variables that Require Updtae
-        //----------------------------------------------------------------------------------
-        int searchBar = GuiTextBox(searchBarInfo.rect, searchBarInfo.text, searchBarInfo.charNum, searchBarInfo.focus);
-
-
         //----------------------------------------------------------------------------------
         // Drawing
         //----------------------------------------------------------------------------------
@@ -76,14 +71,14 @@ int main() {
 
         // Main Textbox Focusing Statement
         //----------------------------------------------------------------------------------
-        if (searchBar) {
+        if (GuiTextBox(searchBarInfo.rect, searchBarInfo.text, searchBarInfo.charNum, searchBarInfo.focus)) {
             searchBarInfo.focus = !searchBarInfo.focus;
         }
 
 
         // Main Textbox Searching
         //----------------------------------------------------------------------------------
-        if (GuiButton({GetScreenWidth()-(bufferSize+(fontSize+10)), bufferSize, (float)fontSize+10, (float)fontSize+10}, ">") || IsKeyPressed(KEY_ENTER) && searchBar) {
+        if (GuiButton({GetScreenWidth()-(bufferSize+(fontSize+10)), bufferSize, (float)fontSize+10, (float)fontSize+10}, ">")) {
             searchButtonPressed = !searchButtonPressed;
         } if (strcmp(searchBarInfo.pastText, searchBarInfo.text) != 0 && searchButtonPressed == true) {
             searchButtonPressed = false;
