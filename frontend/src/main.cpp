@@ -1,41 +1,63 @@
 #include "raylib.h"
+#define RAYGUI_IMPLEMENTATION
 #include "raygui.h"
-#include <iostream>
+#include "resources/theme.h"
 
-//----------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------
 // Main entry point
-//----------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------
 int main() {
-  // Initialization
-  //--------------------------------------------------------------------------------------
-  const int screenWidth = 400;
-  const int screenHeight = 400;
+    // Initialization
+    //-------------------------------------------------------------------------------------
+    const int screenWidth = 400;
+    const int screenHeight = 400;
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
+    InitWindow(screenWidth, screenHeight, "raylib");
+    SetTargetFPS(60);
+    GuiLoadStyleGenesis();
 
-  InitWindow(screenWidth, screenHeight, "raylib");
-  //--------------------
-  //------------------------------------------------------------------
-  SetTargetFPS(60); // Set our game to run at 60 frames-per-second
-  //--------------------------------------------------------------------------------------
+    // Variables
+    //--------------------------------------------------------------------------------------
 
-  // Main game loop
-  while (!WindowShouldClose()) // Detect window close button or ESC key
-  {
-    BeginDrawing();
+    // Color Scheme Defnition
+    char mainTextBoxText[128] = { 0 };
+    bool mainTextBoxFocus = false;
+    bool showText = false;
+    int fontSize = 20;
 
-    char buf[64] = "hello";
-    bool editing = false;
+    // Main game loop
+    while (!WindowShouldClose()) // Detect window close button or ESC key
+    {
+        // Variables that Require Updtae
+        //----------------------------------------------------------------------------------
+        Rectangle mainTextBoxRect = { 10, 10, GetScreenWidth() - 20.0, 30 };
+        int mainTextBox = GuiTextBox(mainTextBoxRect, mainTextBoxText, 128, mainTextBoxFocus);
 
-    if (GuiTextBox({10, 10, 380, 13}, buf, 10, editing)) {
-        editing = !editing;
+
+        // Drawing
+        //----------------------------------------------------------------------------------
+        BeginDrawing();
+        GuiSetStyle(DEFAULT, TEXT_SIZE, fontSize);
+
+        if (mainTextBox) {
+            mainTextBoxFocus = !mainTextBoxFocus;
+        }
+
+        if (IsKeyPressed(KEY_ENTER) && mainTextBox) {
+            showText = !showText;
+        }
+        
+        if (showText) {
+            DrawText(mainTextBoxText, 15, 50, fontSize, WHITE);
+        }
+
+        EndDrawing();
     }
 
-    EndDrawing();
-  }
+    // De-Initialization
+    //--------------------------------------------------------------------------------------
+    CloseWindow(); // Close window and OpenGL context
+    //--------------------------------------------------------------------------------------
 
-  // De-Initialization
-  //--------------------------------------------------------------------------------------
-  CloseWindow(); // Close window and OpenGL context
-  //--------------------------------------------------------------------------------------
-
-  return 0;
-}
+    return 0;
+}   

@@ -2,7 +2,10 @@
     "configurations": [
         {
             "name": "Linux",
-            "includePath": ["${workspaceFolder}/**"], 
+            "includePath": [
+                "${workspaceFolder}/**",
+                "C:/raylib/raylib/src"
+            ],
             "compilerPath": "/usr/bin/gcc",
             "cStandard": "c11",
             "cppStandard": "c++17",
