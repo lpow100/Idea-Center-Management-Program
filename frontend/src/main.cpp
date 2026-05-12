@@ -2,7 +2,6 @@
 #define RAYGUI_IMPLEMENTATION
 #include "raygui.h"
 #include <theme.h>
-#include <httplib.h>
 #include <string.h>
 
 //-----------------------------------------------------------------------------------------
