@@ -5,31 +5,6 @@
 #include <string.h>
 
 //-----------------------------------------------------------------------------------------
-// Textbox Class
-//-----------------------------------------------------------------------------------------
-
-class Textbox {
-    public:
-        char text[128];
-        char pastText[128];
-        bool focus;
-        Rectangle rect;
-        int charNum;
-
-        Textbox(int charNum, Rectangle rect) {
-            this->rect = rect;
-            this->charNum = charNum;
-            memset(text, 0, 128);
-            memset(pastText, 0, 128);
-        }
-
-        void Update() {
-            if (text != NULL) strcpy(pastText, text);
-            rect = {10, 10, (float)GetScreenWidth()-60, 30};
-        }
-};
-
-//-----------------------------------------------------------------------------------------
 // Main entry point
 //-----------------------------------------------------------------------------------------
 int main() {
@@ -53,7 +28,35 @@ int main() {
     // Search Bar
     bool searchButtonPressed = false;
 
-    Textbox searchBarInfo((int) 128, {bufferSize, bufferSize, (float)GetScreenWidth()-((bufferSize*2)+(fontSize+10)), (float)fontSize+10});
+    // Textbox Class
+    //-----------------------------------------------------------------------------------------
+
+    class Textbox {
+        public:
+            char text[128];
+            char pastText[128];
+            bool focus;
+            Rectangle rect;
+            int charNum;
+            float bufferSize;
+            int fontSize;
+
+            Textbox(int charNum, Rectangle rect, float bufferSize, int fontSize) {
+                this->rect = rect;
+                this->charNum = charNum;
+                this->bufferSize = bufferSize;
+                this->fontSize = fontSize;
+                memset(text, 0, 128);
+                memset(pastText, 0, 128);
+            }
+
+            void Update() {
+                if (text != NULL) strcpy(pastText, text);
+                rect = {bufferSize, bufferSize, (float)GetScreenWidth()-((bufferSize*2)+(fontSize+20)), (float)fontSize+10};
+            }
+    };
+
+    Textbox searchBarInfo((int) 128, {bufferSize, bufferSize, (float)GetScreenWidth()-((bufferSize*2)+(fontSize+10)), (float)fontSize+10}, bufferSize, fontSize);
 
     // Main game loop
     while (!WindowShouldClose()) // Detect window close button or ESC key
