@@ -80,12 +80,12 @@ int main() {
 
         // Main Textbox Searching
         //----------------------------------------------------------------------------------
-        if (GuiButton((Rectangle){GetScreenWidth()-(bufferSize+(fontSize+10)), bufferSize, fontSize+10, fontSize+10}, ">") || IsKeyPressed(KEY_ENTER) && searchBar) {
+        if (GuiButton({GetScreenWidth()-(bufferSize+(fontSize+10)), bufferSize, (float)fontSize+10, (float)fontSize+10}, ">") || IsKeyPressed(KEY_ENTER) && searchBar) {
             searchButtonPressed = !searchButtonPressed;
         } if (strcmp(searchBarInfo.pastText, searchBarInfo.text) != 0 && searchButtonPressed == true) {
             searchButtonPressed = false;
         } if (searchButtonPressed) {
-            GuiLabel((Rectangle){bufferSize+5, (bufferSize*2)+(fontSize+10), GetScreenWidth()-(bufferSize*2), fontSize+10}, searchBarInfo.text);
+            GuiLabel({bufferSize+5, (bufferSize*2)+(fontSize+10), GetScreenWidth()-(bufferSize*2), (float)fontSize+10}, searchBarInfo.text);
         }
 
         EndDrawing();
