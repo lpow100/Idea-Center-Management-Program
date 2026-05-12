@@ -2,6 +2,32 @@
 #define RAYGUI_IMPLEMENTATION
 #include "raygui.h"
 #include "resources/theme.h"
+#include <string.h>
+
+//-----------------------------------------------------------------------------------------
+// Textbox Class
+//-----------------------------------------------------------------------------------------
+
+class Textbox {
+    public:
+        char text[128];
+        char pastText[128];
+        bool focus;
+        Rectangle rect;
+        int charNum;
+
+        Textbox(int charNum, Rectangle rect) {
+            this->rect = rect;
+            this->charNum = charNum;
+            memset(text, 0, 128);
+            memset(pastText, 0, 128);
+        }
+
+        void Update() {
+            if (text != NULL) strcpy(pastText, text);
+            rect = {10, 10, (float)GetScreenWidth()-60, 30};
+        }
+};
 
 //-----------------------------------------------------------------------------------------
 // Main entry point
@@ -9,49 +35,62 @@
 int main() {
     // Initialization
     //-------------------------------------------------------------------------------------
-    const int screenWidth = 400;
-    const int screenHeight = 400;
+    const int screenWidth = 960;
+    const int screenHeight = 540;
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
-    InitWindow(screenWidth, screenHeight, "raylib");
+    InitWindow(screenWidth, screenHeight, "FS-ID");
+    SetWindowIcon(LoadImage("resources/ideaCenterLogo.png"));
     SetTargetFPS(60);
     GuiLoadStyleGenesis();
 
     // Variables
     //--------------------------------------------------------------------------------------
 
-    // Color Scheme Defnition
-    char mainTextBoxText[128] = { 0 };
-    bool mainTextBoxFocus = false;
-    bool showText = false;
+    // Basic
     int fontSize = 20;
+    float bufferSize = 10.0f;
+
+    // Search Bar
+    bool searchButtonPressed = false;
+
+    Textbox searchBarInfo((int) 128, {bufferSize, bufferSize, (float)GetScreenWidth()-((bufferSize*2)+(fontSize+10)), (float)fontSize+10});
 
     // Main game loop
     while (!WindowShouldClose()) // Detect window close button or ESC key
     {
         // Variables that Require Updtae
         //----------------------------------------------------------------------------------
-        Rectangle mainTextBoxRect = { 10, 10, GetScreenWidth() - 20.0, 30 };
-        int mainTextBox = GuiTextBox(mainTextBoxRect, mainTextBoxText, 128, mainTextBoxFocus);
+        int searchBar = GuiTextBox(searchBarInfo.rect, searchBarInfo.text, searchBarInfo.charNum, searchBarInfo.focus);
 
 
+        //----------------------------------------------------------------------------------
         // Drawing
         //----------------------------------------------------------------------------------
         BeginDrawing();
+        ClearBackground(GetColor(GuiGetStyle(DEFAULT, BACKGROUND_COLOR)));
         GuiSetStyle(DEFAULT, TEXT_SIZE, fontSize);
 
-        if (mainTextBox) {
-            mainTextBoxFocus = !mainTextBoxFocus;
+
+        // Main Textbox Focusing Statement
+        //----------------------------------------------------------------------------------
+        if (searchBar) {
+            searchBarInfo.focus = !searchBarInfo.focus;
         }
 
-        if (IsKeyPressed(KEY_ENTER) && mainTextBox) {
-            showText = !showText;
-        }
-        
-        if (showText) {
-            DrawText(mainTextBoxText, 15, 50, fontSize, WHITE);
+
+        // Main Textbox Searching
+        //----------------------------------------------------------------------------------
+        if (GuiButton((Rectangle){GetScreenWidth()-(bufferSize+(fontSize+10)), bufferSize, fontSize+10, fontSize+10}, ">") || IsKeyPressed(KEY_ENTER) && searchBar) {
+            searchButtonPressed = !searchButtonPressed;
+        } if (strcmp(searchBarInfo.pastText, searchBarInfo.text) != 0 && searchButtonPressed == true) {
+            searchButtonPressed = false;
+        } if (searchButtonPressed) {
+            GuiLabel((Rectangle){bufferSize+5, (bufferSize*2)+(fontSize+10), GetScreenWidth()-(bufferSize*2), fontSize+10}, searchBarInfo.text);
         }
 
         EndDrawing();
+
+        searchBarInfo.Update();
     }
 
     // De-Initialization
