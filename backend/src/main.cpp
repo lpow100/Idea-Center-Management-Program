@@ -6,11 +6,13 @@
 #include <argon2.h>
 #include <algorithm>
 #include <dotenv.h>
+#include "logger.hpp"
 #include "stembassadors.hpp"
 
 #define HASHLEN 32
 #define SALTLEN 16
 #define ENCODED_LEN 128 
+
 
 int main() {
     dotenv env(".env");  // Load variables from .env file
@@ -89,8 +91,10 @@ int main() {
         int kitPrice = int(kitInfo["price"].i());
         int kitStock = int(kitInfo["stock"].i());
         try {
-            pqxx::work tx(database);
+            Logger::getInstance().SetChangeAuthor(stembassadorID,database);
 
+            pqxx::work tx(database);
+            
             tx.exec_params(
                 "INSERT INTO idea_kits (author, name, lengthMs, price, stock) VALUES ($1, $2, $3, $4, $5)",
                 stembassadorID, kitName, kitLength, kitPrice, kitStock
@@ -119,6 +123,12 @@ int main() {
             return crow::response(400, "Invalid JSON");
         }
 
+        int stembassadorID = GetStembassadorID((std::string)body_json["stembassador"].s(),database);
+
+        if (!CheckSessionID(stembassadorID,(std::string)body_json["session-id"].s(),database)) {
+            return crow::response(400, "Invalid Credentials");
+        }
+
         char hash1[ENCODED_LEN];
 
         uint8_t salt[SALTLEN];
@@ -144,6 +154,8 @@ int main() {
         }
 
         try {
+            Logger::getInstance().SetChangeAuthor(stembassadorID,database);
+
             pqxx::work tx(database);
             
             tx.exec_params(

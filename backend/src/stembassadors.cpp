@@ -19,6 +19,7 @@ std::string CreateSessionID(int stembassadorID, pqxx::connection& database) {
     }
     std::string sessionToken = ss.str();
             
+    
     tx.exec_params(
         "INSERT INTO sessions (token, stembassador_id) VALUES ($1, $2)",
         sessionToken, 

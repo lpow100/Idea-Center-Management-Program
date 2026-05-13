@@ -37,7 +37,8 @@ puts a new stembassador in the system
 #### body JSON:
 ``` json
 { 
-    "stembassador": {stembassador session ID (string)},
+    "stembassador": {stembassador name (string)},
+    "session-id": {stembassador session ID (string)},
     "name": {new stembassador name (string)},
     "password": {new stembassador password (string)}
 }
