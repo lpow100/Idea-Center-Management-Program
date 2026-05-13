@@ -2,7 +2,7 @@ CXX = g++
 SRC := $(wildcard src/*.cpp)
 OBJS := $(SRC:.cpp=.o)
 
-CXXFLAGS = -std=c++17 -Wall -Iphc-winner-argon2-20190702/include
+CXXFLAGS = -std=c++17 -Wall -Iphc-winner-argon2-20190702/include -Iinclude
 
 LDLIBS = -lpqxx -lpq -lfmt
 

@@ -32,7 +32,7 @@ allows the system to add or remove people to amount of people in a class
 }
 ```
 
-### /add-stembassador/
+### POST /add-stembassador/
 puts a new stembassador in the system
 #### body JSON:
 ``` json
@@ -50,7 +50,7 @@ puts a new stembassador in the system
 }
 ```
 
-### /login-stembassador/
+### POST /login-stembassador/
 gives a session id to allow the frontend to be logged in
 #### body JSON:
 ``` json
@@ -68,7 +68,7 @@ gives a session id to allow the frontend to be logged in
 }
 ```
 
-### /create-kit/
+### POST /create-kit/
 creates a new kit
 #### body JSON:
 ``` json
@@ -92,7 +92,7 @@ creates a new kit
 ```
 
 
-### /remove-stembassador/
+### POST /remove-stembassador/
 removes an exisiting stembassador
 #### body JSON:
 ``` json
@@ -109,3 +109,4 @@ removes an exisiting stembassador
     "message": {info about the status (string)}
 }
 ```
+

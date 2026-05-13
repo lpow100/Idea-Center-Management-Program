@@ -5,6 +5,7 @@
 #include <crow/json.h>
 #include <argon2.h>
 #include <algorithm>
+#include <dotenv.h>
 #include "stembassadors.hpp"
 
 #define HASHLEN 32
@@ -12,11 +13,18 @@
 #define ENCODED_LEN 128 
 
 int main() {
+    dotenv env(".env");  // Load variables from .env file
+
+    // Retrieve variables with default values if they are not set
+    std::string db_host = env.get("DB_HOST", "localhost");
+    std::string db_user = env.get("DB_USER", "postgres");
+    std::string db_password = env.get("DB_PASSWORD", "");
+
     crow::SimpleApp app;
     std::optional<pqxx::connection> database_definition;
 
     try {
-        database_definition = pqxx::connection("user=postgres password=MikaSwims1984 host=localhost dbname=ideacenterdowntowninventory");
+        database_definition = pqxx::connection("user=" + db_user + " password=" + db_password + " host=" + db_host + " dbname=ideacenterdowntowninventory");
     } catch (const std::exception &e) {
         std::cerr << "[ERROR]: Could not init datasbase: \n\t" << e.what() << std::endl;
         return 1;
