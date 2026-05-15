@@ -271,6 +271,11 @@ int main() {
         }
     });
 
+    CROW_ROUTE(app, "/find-user/<string>").methods(crow::HTTPMethod::GET)
+    ([&database](const crow::request& req, std::string name) {
+        
+    });
+
     app.port(18080).run();
 
     database.close();
