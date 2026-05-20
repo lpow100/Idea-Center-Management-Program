@@ -57,7 +57,7 @@ int main() {
     const int screenWidth = 960; 
     const int screenHeight = 540;
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
-    InitWindow(screenWidth, screenHeight, "FS-ID");
+    InitWindow(screenWidth, screenHeight, "Idea Center Management System");
     SetWindowIcon(LoadImage("resources/ideaCenterLogo.png"));
     SetTargetFPS(60);
     GuiLoadStyleGenesis();
